@@ -33,7 +33,6 @@ RUN \
   service mysql start && mysqladmin -u root password $mysql_root_pwd && \
 # Install PHPMyAdmin
   apt-get install -y phpmyadmin && \
-  ln -s /usr/share/phpmyadmin/ /var/www/ && \
 # Clean system
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
