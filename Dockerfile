@@ -14,6 +14,7 @@ RUN \
   apt-get install -y wget curl vim nano && \
 # Install Nginx
   apt-get install -y nginx && \
+  usermod -u 1000 www-data && \
 # Install PHP 7.0
   apt-get install -y php7.0-fpm php7.0-cli php7.0-intl php7.0-xml php7.0-mysql && \
   sed -i \
