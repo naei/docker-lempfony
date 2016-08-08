@@ -14,7 +14,6 @@ RUN \
   apt-get install -y wget curl vim nano && \
 # Install Nginx
   apt-get install -y nginx && \
-  usermod -u 1000 www-data && \
 # Install PHP 7.0
   apt-get install -y php7.0-fpm php7.0-cli php7.0-intl php7.0-xml php7.0-mysql && \
   sed -i \
@@ -30,25 +29,39 @@ RUN \
   curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
 # Install MySQL
   apt-get install -y mysql-server && \
+  usermod -d /var/lib/mysql/ mysql && \
   service mysql start && mysqladmin -u root password $mysql_root_pwd && \
-# Install PHPMyAdmin
+# Install phpMyAdmin
   apt-get install -y phpmyadmin && \
+# Move default MySQL & phpMyAdmin databases to a non-shared folder
+  service mysql stop && \
+  mkdir /var/lib/mysql-db && \
+  mv /var/lib/mysql/* /var/lib/mysql-db/ && \
 # Clean system
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Default vhost config for Nginx and PHP
-ADD default-vhost.conf /etc/nginx/sites-available/default
+# Copy default Nginx vhost config for PHP and PHPMyAdmin
+COPY default-vhost.conf /etc/nginx/sites-available/default
 
-# Container default directory
+# Set default directory
 WORKDIR /var/www
 
-# Ports to listen to
+# Set ports to listen to
 EXPOSE 80
 
-# Start services at startup
-CMD \
+# Actions on container startup
+ENTRYPOINT \
+  # Restore default MySQL & phpMyAdmin databases into the MySQL host volume
+  cp -rn /var/lib/mysql-db/* /var/lib/mysql && \
+  # Add permissions on host volumes
+  chown -R mysql /var/lib/mysql && \
+  mkdir -p /var/log/mysql && chown -R mysql /var/log/mysql && \
+  chown -R www-data /var/www && \
+  mkdir -p /var/log/nginx && chown -R www-data /var/log/nginx && \
+  # Start services
   service mysql start && \
   service php7.0-fpm start && \
-  nginx && \
-  bash
+  service nginx start && \
+  # Start bash
+  /bin/bash
