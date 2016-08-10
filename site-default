@@ -2,10 +2,10 @@ server {
   listen 80;
   listen [::]:80;
 
-  root /var/www;
-  index index.html index.php app.php;
-
   server_name localhost;
+
+  root /var/www;
+  index index.html index.php;
 
   location ~ \.php$ {
     fastcgi_split_path_info ^(.+\.php)(/.+)$;

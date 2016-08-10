@@ -7,6 +7,9 @@ ARG mysql_root_pwd=development
 
 ENV DEBIAN_FRONTEND noninteractive
 
+# Add Symfony project creation script
+COPY symfony-create.sh /usr/bin/symfony-create
+
 RUN \
 # Base install
   apt-get update && \
@@ -15,7 +18,7 @@ RUN \
 # Install Nginx
   apt-get install -y nginx && \
 # Install PHP 7.0
-  apt-get install -y php7.0-fpm php7.0-cli php7.0-intl php7.0-xml php7.0-mysql && \
+  apt-get install -y php7.0-fpm php7.0-cli php7.0-intl php7.0-xml php7.0-mysql php7.0-zip && \
   sed -i \
     -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" \
     -e "s/;date.timezone.*$/date.timezone = \"UTC\"/" \
@@ -24,7 +27,7 @@ RUN \
   echo "<?php phpinfo(); ?>" > /var/www/index.php && \
 # Install Symfony
   curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony && \
-  chmod a+x /usr/local/bin/symfony && \
+  chmod a+x /usr/local/bin/symfony /usr/bin/symfony-create && \
 # Install Composer
   curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
 # Install MySQL
@@ -41,8 +44,8 @@ RUN \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Copy default Nginx vhost config for PHP and PHPMyAdmin
-COPY default-vhost.conf /etc/nginx/sites-available/default
+# Add default Nginx server block for PHP and phpMyAdmin
+COPY site-default /etc/nginx/sites-available/default
 
 # Set default directory
 WORKDIR /var/www
