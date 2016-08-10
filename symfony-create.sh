@@ -11,10 +11,10 @@ if [[  -z "$APP" || "$APP" =~ [^a-zA-Z0-9-] ]]; then
   echo "Invalid project name. Only alphanumerics and hyphens characters are allowed."
   exit 1
 else 
-	if [ -d "$ROOT" ]; then
-  		echo "The project $APP already exist."
-  		exit 1
-  	fi
+  if [ -d "$ROOT" ]; then
+    echo "The project $APP already exist."
+    exit 1
+  fi
 fi
 
 # Create Symfony app
