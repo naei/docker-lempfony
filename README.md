@@ -34,3 +34,9 @@ If ```--build-arg [...]``` is not set, MySQL credentials will be root:developmen
 ### Create a new Symfony app
 To quickly setup a functionnal new Symfony app (development only):
 <pre><code>symfony-create <i><b>app-name</b></i> <i><b>[symfony-version]</b></i></code></pre>
+
+### Troubleshooting
+
+#### Windows host: the Symfony project creation crash after "Preparing project..."
+The Symfony project creation process works with symlinks. By default on Windows,  only an administrator can create symlink, so be sure that the Docker terminal is launched as an administrator. 
+
