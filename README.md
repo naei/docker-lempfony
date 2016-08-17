@@ -40,3 +40,8 @@ To quickly setup a functionnal new Symfony app (development only):
 #### Windows host: the Symfony project creation crash after "Preparing project..."
 The Symfony project creation process works with symlinks. By default on Windows,  only an administrator can create symlink, so be sure that the Docker terminal is launched as an administrator. 
 
+#### Windows host: the local domain names are accessible from inside the container but not from a web browser
+Each domain name must be binded to the Docker container's IP in the C:\Windows\System32\drivers\etc\hosts file:
+<pre><code>192.168.99.100 project.dev
+192.168.99.100 otherproject.dev</code></pre>
+
