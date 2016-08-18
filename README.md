@@ -22,6 +22,7 @@ If ```--build-arg [...]``` is not set, MySQL credentials will be root:developmen
   -v <i><b>~/projects/log</b></i>:/var/log \
   -v <i><b>~/projects/mysql</b></i>:/var/lib/mysql \
   -v <i><b>~/projects/www</b></i>:/var/www \
+  -v <i><b>~/projects/sites</b></i>:/etc/nginx/sites-available \
   lempfony:latest</code></pre>
 
 #### ...in detached mode
@@ -29,6 +30,7 @@ If ```--build-arg [...]``` is not set, MySQL credentials will be root:developmen
   -v <i><b>~/projects/log</b></i>:/var/log \
   -v <i><b>~/projects/mysql</b></i>:/var/lib/mysql \
   -v <i><b>~/projects/www</b></i>:/var/www \
+  -v <i><b>~/projects/sites</b></i>:/etc/nginx/sites-available \
   lempfony:latest</code></pre>
 
 ### Create a new Symfony app

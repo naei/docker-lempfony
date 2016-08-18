@@ -14,7 +14,7 @@ RUN \
 # Base install
   apt-get update && \
   apt-get -y upgrade && \
-  apt-get install -y wget curl vim nano && \
+  apt-get install -y wget curl vim nano acl && \
 # Install Nginx
   apt-get install -y nginx && \
 # Install PHP 7.0
@@ -45,7 +45,7 @@ RUN \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add default Nginx server block for PHP and phpMyAdmin
-COPY site-default /etc/nginx/sites-available/default
+COPY site-default /etc/nginx/site-default
 
 # Set default directory
 WORKDIR /var/www
@@ -57,6 +57,9 @@ EXPOSE 80
 ENTRYPOINT \
   # Restore default MySQL & phpMyAdmin databases into the MySQL host volume
   cp -rn /var/lib/mysql-db/* /var/lib/mysql && \
+  # Restore and enable Nginx server blocks
+  cp -f /etc/nginx/site-default /etc/nginx/sites-available/default && \
+  ln -sf /etc/nginx/sites-available/* /etc/nginx/sites-enabled/ && \
   # Add permissions on host volumes
   chown -R mysql /var/lib/mysql && \
   mkdir -p /var/log/mysql && chown -R mysql /var/log/mysql && \
