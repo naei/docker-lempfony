@@ -44,7 +44,7 @@ RUN \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Add default Nginx server block for PHP and phpMyAdmin
+# Add default Nginx server block for PHP and phpMyAdmin to a non-shared folder
 COPY site-default /etc/nginx/site-default
 
 # Set default directory
