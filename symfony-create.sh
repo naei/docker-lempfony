@@ -44,7 +44,6 @@ echo -e $INF"Updating project dependencies..."$RES
 # Fix access issues
 echo -e $INF"Setting up access rights..."$RES
 {
-  apt-get update && apt-get install -y acl
   HTTPDUSER=`ps aux | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
   if [[ $VERSION == 2* ]]; then
     # Symfony 2.x
