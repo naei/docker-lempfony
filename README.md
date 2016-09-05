@@ -13,8 +13,11 @@ Set up a development environment in a single container.
 ### Build
 <pre><code>docker build \
   --build-arg mysql_root_pwd=<i><b>custom_pwd</b></i> \
-  -t lempfony .</code></pre>
+  -t naei/lempfony .</code></pre>
 If ```--build-arg [...]``` is not set, MySQL credentials will be root:development.
+
+##### ... or directly pull the image from the Docker Hub Registry:
+```docker pull naei/lempfony```
 
 ### Run 
 #### ...in shell
@@ -23,7 +26,7 @@ If ```--build-arg [...]``` is not set, MySQL credentials will be root:developmen
   -v <i><b>~/projects/mysql</b></i>:/var/lib/mysql \
   -v <i><b>~/projects/www</b></i>:/var/www \
   -v <i><b>~/projects/sites</b></i>:/etc/nginx/sites-available \
-  lempfony:latest</code></pre>
+  naei/lempfony:latest</code></pre>
 
 #### ...in detached mode
 <pre><code>docker run -dit -p 80:80 \
@@ -31,7 +34,7 @@ If ```--build-arg [...]``` is not set, MySQL credentials will be root:developmen
   -v <i><b>~/projects/mysql</b></i>:/var/lib/mysql \
   -v <i><b>~/projects/www</b></i>:/var/www \
   -v <i><b>~/projects/sites</b></i>:/etc/nginx/sites-available \
-  lempfony:latest</code></pre>
+  naei/lempfony:latest</code></pre>
 
 ### Create a new Symfony app
 To quickly setup a functionnal new Symfony app (development only):
