@@ -2,6 +2,10 @@
 
 ## setup my-project
 cd /var/www/my-project && \
+# first run after cloning the project
+if [ ! -d vendor ]; then
+	composer install
+fi && \
 # clear cache
 app/console cache:clear && \
 composer clear-cache && \
