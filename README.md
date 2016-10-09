@@ -1,13 +1,21 @@
 ## docker-lempfony
 
+[![Docker Build](https://img.shields.io/docker/automated/naei/lempfony.svg?style=flat-square)](https://hub.docker.com/r/naei/lempfony/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/naei/lempfony.svg?style=flat-square)](https://hub.docker.com/r/naei/lempfony/)  
+
 Set up a development environment in a single container.
 
 Ubuntu 16.04 | Nginx | MySQL | PHP 7.0 | phpMyAdmin | Composer | Symfony  
 
-
 ### Get the image
 
-#### ...by building it
+#### ...by pulling it from the Docker Hub Registry:
+
+```shell
+docker pull naei/lempfony
+```  
+
+#### ...by building it from the sources:
 
 Clone the project, access it from your terminal, then build it:
 
@@ -15,13 +23,9 @@ Clone the project, access it from your terminal, then build it:
 docker build \
   --build-arg mysql_root_pwd=<custom_pwd> \
   -t naei/lempfony .
-```
-If ```--build-arg [...]``` is not set, MySQL credentials will be root:development.
+```  
 
-#### ...by pulling it from the Docker Hub Registry:
-```shell
-docker pull naei/lempfony
-```
+If ```--build-arg [...]``` is not set, MySQL credentials will be root:development.
 
 
 ### Run the container
@@ -36,7 +40,7 @@ docker run -it --rm --name lempfony -p 80:80 \
   naei/lempfony:latest
 ```
 For detached mode, replace the first line by:  
-```docker run -dit --name lempfony -p 80:80 \```
+```docker run -dit --name lempfony -p 80:80 \```  
 
 The data volumes are optionals and can be added or removed depending on the needs.  
 For detailled information about it, you can take a look at the [example](example/workspace) workspace.
@@ -60,7 +64,7 @@ Each domain name must be binded to the Docker container's IP in the C:\Windows\S
 ```
 192.168.99.100 project.dev
 192.168.99.100 otherproject.dev
-```
+```  
 
 #### Linux host: the local domain name is not accessible from Firefox
 You might need to add the local domain name into about:config > network.dns.localDomains
