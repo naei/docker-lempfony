@@ -75,7 +75,7 @@ ENTRYPOINT \
   cp -rn /var/lib/mysql-db/* /var/lib/mysql && \
   chown -R mysql /var/lib/mysql && \
   # restore default Nginx server block and enable all sites
-  cp -f /etc/nginx/site-default /etc/nginx/sites-available/default && \
+  cp -f /etc/nginx/default/site-default /etc/nginx/sites-available/default && \
   ln -sf /etc/nginx/sites-available/* /etc/nginx/sites-enabled/ && \
   # restore permissions on workspace and logs
   chown -R www-data /var/www && \
