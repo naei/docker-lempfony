@@ -56,15 +56,20 @@ Your project will be immediately accessible at &lt;app-name>.dev .
 
 ### Troubleshooting
 
-#### Windows host: the Symfony project creation script crash after "Preparing project..."
+#### ➢ I don't know on which IP my container is running
+```shell
+docker inspect --format '{{ .NetworkSettings.IPAddress }}' lempfony
+```  
+
+#### ➢ The local domain name is not accessible from Firefox
+You might need to add the local domain name into about:config > network.dns.localDomains
+
+#### ➢ Windows host: the Symfony project creation script crash after "Preparing project..."
 The Symfony project creation process works with symlinks. By default on Windows,  only an administrator can create symlink, so be sure that the Docker terminal is launched as an administrator. 
 
-#### Windows host: the local domain names are accessible from inside the container but not from a web browser
+#### ➢ Windows host: the local domain names are accessible from inside the container but not from a web browser
 Each domain name must be binded to the Docker container's IP in the C:\Windows\System32\drivers\etc\hosts file:
 ```
 192.168.99.100 project.dev
 192.168.99.100 otherproject.dev
 ```  
-
-#### Linux host: the local domain name is not accessible from Firefox
-You might need to add the local domain name into about:config > network.dns.localDomains
